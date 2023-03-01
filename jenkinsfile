@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+    triggers {
+                githubPush()
+    }
+    stages {
+        stage('Build') {
+            steps {
+                // Checkout the code from GitHub
+                git branch: 'main', url:'https://github.com/Ajghumaliya/static-web-host-s3.git'
+
+            }
+        }
+        stage('Deploy to S3') {
+            steps {
+                // Upload the files to S3
+                withAWS(credentials: 'staticwebkey') {
+                    s3Upload(bucket: 'adsl-static-web-1', file: '*', workingDir: 'public/')
+                }
+            }
+        }
+    }
+}
