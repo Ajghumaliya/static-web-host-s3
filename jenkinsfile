@@ -5,7 +5,7 @@ pipeline {
     steps {
         withAWS(credentials: 'staticwebkey', region: 'ap-south-1') {
             s3Upload(bucket: 'adsl-static-web-1', file: '/*', path: '/')
-        }
+         }
     }
 }
 
